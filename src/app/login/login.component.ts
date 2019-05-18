@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { PushNotificationOptions, PushNotificationService } from 'ngx-push-notifications';
+
 import { first } from 'rxjs/operators';
 import { User } from  '../user';
 import { AuthService } from  '../auth.service';
@@ -16,7 +18,8 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
     isSubmitted  =  false;
     constructor(private router:Router,private authService: AuthService,
-       private formBuilder: FormBuilder,private DataService:DataService) {
+       private formBuilder: FormBuilder,private DataService:DataService,private _pushNotificationService: PushNotificationService) { 
+        const isGranted = this._pushNotificationService.isPermissionGranted; 
      
      }    
       
@@ -30,6 +33,7 @@ export class LoginComponent implements OnInit {
             //   Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
             // ]))
         }); 
+        this._pushNotificationService.requestPermission();
         const isLoggedIn = localStorage.getItem('isLoggedIn');
         if (isLoggedIn) {
          // this.login();
@@ -37,6 +41,31 @@ export class LoginComponent implements OnInit {
         }
       sessionStorage.clear();    
     }  
+    myFunction() {
+      const title = 'Hello';
+      const options = new PushNotificationOptions();
+      options.body = 'Native Push Notification';
+   
+      this._pushNotificationService.create(title, options).subscribe((notif) => {
+        if (notif.event.type === 'show') {
+          console.log('onshow');
+          setTimeout(() => {
+            notif.notification.close();
+          }, 3000);
+        }
+        if (notif.event.type === 'click') {
+          console.log('click');
+          notif.notification.close();
+        }
+        if (notif.event.type === 'close') {
+          console.log('close');
+        }
+      },
+      (err) => {
+           console.log(err);
+      });
+  }
+
     get formControls() { return this.loginForm.controls; }  
     // firstClick() {
     //     this.router.navigate(['about/priyanshi']);
@@ -60,6 +89,7 @@ export class LoginComponent implements OnInit {
         if (Response.Status == 'true') {
           localStorage.setItem('isLoggedIn', 'true');
           console.log(localStorage.getItem('isLoggedIn'));
+          this.myFunction();
          //alert('Success');
         } else {
           localStorage.removeItem('isLoggedIn');
