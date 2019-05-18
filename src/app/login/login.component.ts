@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
         });
       }
       login(){
+        this.myFunction();
         this.isSubmitted = true;
         if (!this.loginForm.valid) {
           return;
@@ -89,7 +90,6 @@ export class LoginComponent implements OnInit {
         if (Response.Status == 'true') {
           localStorage.setItem('isLoggedIn', 'true');
           console.log(localStorage.getItem('isLoggedIn'));
-          this.myFunction();
          //alert('Success');
         } else {
           localStorage.removeItem('isLoggedIn');
