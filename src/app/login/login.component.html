@@ -1,0 +1,78 @@
+
+<!-- <div class="login" style="padding-top:60px;">
+  <div class="row">  
+    <div class="col-md-6 mx-auto">  
+      <div class="card-group">  
+        <div class="card p-4">  
+          <div class="card-body">  
+            <form name="form" (ngSubmit)="login()" #f="ngForm" class="login-container" >  
+              <h2 class="login-header">Log in</h2>
+               
+              <div class="input-group mb-3">  
+                <div class="input-group-prepend">  
+                  <span class="input-group-text"><i class="icon-user"></i></span>  
+                </div>  
+                <input type="email" placeholder="Email" 
+                name="UserName" [(ngModel)]="model.UserName" class="form-control sty1"> -->
+ 
+                <!-- <input type="text" name="UserName" [(ngModel)]="model.UserName" class="form-control sty1" placeholder="Email" required>   -->
+              <!-- </div>  
+              <div class="input-group mb-4">  
+                <div class="input-group-prepend">  
+                  <span class="input-group-text"><i class="icon-lock"></i></span>  
+                </div>  
+                <input  type="password" name="Passward" [(ngModel)]="model.Password" class="form-control"  
+               placeholder="Password">  
+              </div>  
+              <div>  
+                  <p style="color:#E92626;font-size:20px;font-weight:normal" Class="success" align="left">  
+                    {{errorMessage}}  
+                  </p>  
+                </div>  
+              <div class="row">  
+                <div class="col-6">   -->
+                  <!-- <button type="submit" class="btn btn-primary px-4">Login</button>   -->
+                  <!-- <p>
+                      <button (click)="firstClick()" type="submit" class="btn btn-primary px-4">Login</button> -->
+                    <!-- <input type="submit" value="Log in"> -->
+                  <!-- </p>
+                </div>   -->
+                <!-- <div class="col-6 text-right">  
+                  <button type="button" class="btn btn-link px-0">Forgot password?</button>   
+                </div>   -->
+              <!-- </div>  
+                
+            </form>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+</div>   -->
+  <div class="login">
+    <h2 class="login-header">Log in</h2>
+    <form [formGroup]="loginForm" class="login-container" (ngSubmit)="login()">
+  
+      <p [ngClass]="{ 'has-error': isSubmitted && formControls.Email.errors }">
+        <input type="Email" placeholder="Email" formControlName="Email" class="form-control">
+      </p>
+  
+      <div *ngIf="isSubmitted && formControls.Email.errors" class="invalid-feedback">
+        <div *ngIf="formControls.Email.errors.required">Email is required</div>
+         <div *ngIf="formControls.Email.errors.email">Email must be a valid email address</div>
+      </div>
+  
+      <p [ngClass]="{ 'has-error': isSubmitted && formControls.Password.errors }">
+        <input type="Password" placeholder="Password" formControlName="Password" class="form-control">
+      </p>
+  
+      <div *ngIf="isSubmitted && formControls.Password.errors" class="invalid-feedback">
+        <div *ngIf="formControls.Password.errors.required">Password is required</div>
+        <div *ngIf="formControls.Password.errors.minlength">Password must be at least 6 characters</div>
+      </div>
+  
+      <p>
+        <input type="submit" value="Log in">
+      </p>
+    </form>
+  </div>

@@ -1,0 +1,46 @@
+<header>
+    <div class='container px-0'>
+      <a routerlink='/' class='logo'>{{ promise | async }}</a>
+      <nav>
+        <ul>
+          <div *ngIf="isLoggedIn; else elseRoleBlock">
+              <li><a routerLink="/home">Home</a></li>
+              <li><a routerLink="/home/about/ayush">About</a></li>
+              <li><a routerLink="/home/contact">Contact us</a></li>
+              <li><a (click)="logoutUser()">Logout</a></li>
+              <!-- <li><a (click)="logoutUser()">Logout</a></li> -->
+          </div>   
+          <ng-template #elseRoleBlock>
+              <li><a routerLink="/home">Home</a></li>
+              <li><a (click)="logoutUser()">Logout</a></li>
+          </ng-template>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+
+<!-- <header>
+  <div  class="container">
+    <a routerLink="/" class="logo">{{ promise | async }}</a>
+    <nav>
+      <ul>
+        <div *ngIf="role === '0'; else notShow"></div>
+          <li><a routerLink="/">Home</a></li>
+          <li><a routerLink="/about">About</a></li>
+          <li><a routerLink="/contact">Contact us</a></li>
+          <a routerLink="/login">
+              <img src="assets/img/logout.png">
+          </a>
+        </div>
+        <ng-template #notShow>
+              <li><a routerLink="/">Home</a></li>
+              <a routerLink="/login">
+                  <img src="assets/img/logout.png">
+                </a>
+          </ng-template>
+      </ul>
+    </nav>
+  </div>
+</header> -->
